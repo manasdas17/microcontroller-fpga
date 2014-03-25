@@ -1,0 +1,15 @@
+NET "x_in(0)" LOC = "T10";
+NET "x_in(1)" LOC = "T9";
+NET "x_in(2)" LOC = "V9";
+NET "x_in(3)" LOC = "M8";
+
+NET "y_in(0)" LOC = "N8";
+NET "y_in(1)" LOC = "U8";
+NET "y_in(2)" LOC = "V8";
+NET "y_in(3)" LOC = "T5";
+
+NET "sum(0)" LOC = "U16";
+NET "sum(1)" LOC = "V16";
+NET "sum(2)" LOC = "U15";
+NET "sum(3)" LOC = "V15";
+NET "carry" LOC = "M11";

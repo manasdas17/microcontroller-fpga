@@ -1,0 +1,17 @@
+NET "data_in(0)" LOC = "T10";
+NET "data_in(1)" LOC = "T9";
+NET "data_in(2)" LOC = "V9";
+NET "data_in(3)" LOC = "M8";
+
+NET "data_out(0)" LOC = "U16";
+NET "data_out(1)" LOC = "V16";
+NET "data_out(2)" LOC = "U15";
+NET "data_out(3)" LOC = "V15";
+
+NET "read_addr_bus(0)" LOC = "N8";
+NET "read_addr_bus(1)" LOC = "U8";
+
+NET "write_addr_bus(0)" LOC = "V8";
+NET "write_addr_bus(1)" LOC = "T5";
+
+NET "clock" LOC = "A8";

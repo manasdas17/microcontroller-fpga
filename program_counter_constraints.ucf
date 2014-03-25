@@ -1,0 +1,7 @@
+NET "data_out(0)" LOC = "U16";
+NET "data_out(1)" LOC = "V16";
+NET "data_out(2)" LOC = "U15";
+NET "data_out(3)" LOC = "V15";
+
+NET "addr_clock" LOC = "A8";
+NET "result_clock" LOC = "C9";
