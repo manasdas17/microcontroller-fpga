@@ -1,0 +1,3 @@
+NET "data" LOC = "T10";
+NET "clock" LOC = "A8";
+NET "value" LOC = "U16";

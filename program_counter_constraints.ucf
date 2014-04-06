@@ -3,5 +3,11 @@ NET "data_out(1)" LOC = "V16";
 NET "data_out(2)" LOC = "U15";
 NET "data_out(3)" LOC = "V15";
 
+NET "addr_in(0)" LOC = "T10";
+NET "addr_in(1)" LOC = "T9";
+NET "addr_in(2)" LOC = "V9";
+NET "addr_in(3)" LOC = "M8";
+
+NET "addr_in_sel" LOC = "B8";
 NET "addr_clock" LOC = "A8";
 NET "result_clock" LOC = "C9";

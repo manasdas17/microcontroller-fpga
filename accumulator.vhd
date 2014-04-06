@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    12:06:21 03/20/2014 
+-- Create Date:    19:55:42 04/06/2014 
 -- Design Name: 
--- Module Name:    program_counter - Behavioral 
+-- Module Name:    accumulator - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -29,21 +29,26 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity program_counter is
+entity accumulator is
 	Generic ( size: integer :=4);
-	Port (addr_in: in STD_LOGIC_VECTOR (size-1 downto 0);
-			addr_in_sel: in STD_LOGIC;
-			addr_clock: in STD_LOGIC;
-			result_clock: in STD_LOGIC;
-			data_out: out STD_LOGIC_VECTOR (size-1 downto 0));
-end program_counter;
+	Port (sel_ldi: in STD_LOGIC;
+			acc_enable: in STD_LOGIC;
+			clock_1: in STD_LOGIC;
+			clock_2: in STD_LOGIC;
+			sel_imm: in STD_LOGIC;
+			data_in : in  STD_LOGIC_VECTOR (size-1 downto 0);
+			data_in_imm : in  STD_LOGIC_VECTOR (size-1 downto 0);
+			data_out : out  STD_LOGIC_VECTOR (size-1 downto 0);
+			carry: out STD_LOGIC);
+	
+end accumulator;
 
-architecture arch of program_counter is
-	signal 	addr_cell_out,
-				alu_in,
-				alu_to_result_cell,
-				addr_cell_in,
-				result_cell_out: STD_LOGIC_VECTOR (size-1 downto 0);
+architecture arch of accumulator is
+	signal 	input_cell_in,
+				input_cell_out,
+				result_cell_in,
+				alu_y_in,
+				alu_out: STD_LOGIC_VECTOR (size-1 downto 0);
 
 	component register_cell is
 		Generic ( size: integer :=size);
@@ -58,30 +63,28 @@ architecture arch of program_counter is
 			  y_in : in  STD_LOGIC_VECTOR (size-1 downto 0);
 			  sum : out  STD_LOGIC_VECTOR (size-1 downto 0);
 			  carry: out STD_LOGIC);
-	end component;	
+	end component;
 begin
-		addr_cell_in <= addr_in when addr_in_sel='1' else result_cell_out;
-		addr_cell : register_cell port map(
-							data_in => addr_cell_in,
-							data_out => addr_cell_out,
-							clock => addr_clock);
-		al : alu port map (
-						x_in => alu_in,
-						y_in => (size-1 downto 1 => '0', others => '1'),
-						sum => alu_to_result_cell,
-						carry => open);
-		result_cell : register_cell port map(
-							data_in => alu_to_result_cell,
-							data_out => result_cell_out,
-							clock => result_clock);
-		process (addr_clock)
-			begin 
-				if( addr_clock = '1') then
-					alu_in <= (size-1 downto 0 => 'Z'); 
-				else
-					alu_in <= addr_cell_out; 
-				end if; 
-				data_out <= addr_cell_out;
-		end process;		
+	input_cell: register_cell port map(
+		data_in => input_cell_in,
+		data_out => input_cell_out,
+		clock => (acc_enable and clock_2)
+	);
+
+	result_cell_in <= data_in_imm when sel_ldi='1' else alu_out;
+	result_cell: register_cell port map(
+		data_in => result_cell_in,
+		data_out => input_cell_in,
+		clock => clock_1
+	); 
+	
+	alu_y_in <= data_in_imm when sel_imm='1' else data_in;
+	al: alu port map(
+		x_in => input_cell_out,
+		y_in => alu_y_in,
+		sum => alu_out,
+		carry => carry
+	);
+	data_out <= input_cell_in;
 end arch;
 

@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    10:12:07 03/25/2014 
+-- Create Date:    18:15:07 04/06/2014 
 -- Design Name: 
--- Module Name:    instruction_register - Behavioral 
+-- Module Name:    status_register - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -29,23 +29,22 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity instruction_register is
-		Generic ( size: integer :=16);
+entity status_register is
+		Generic ( size: integer :=8);
 		Port (data_in : in  STD_LOGIC_VECTOR (size-1 downto 0);
 				data_out : out  STD_LOGIC_VECTOR (size-1 downto 0));
-end instruction_register;
+end status_register;
 
-architecture arch of instruction_register is
+architecture arch of status_register is
 		component register_cell is
 		  Generic ( size: integer :=size);
 		  Port (data_in : in  STD_LOGIC_VECTOR (size-1 downto 0);
 					 data_out: out STD_LOGIC_VECTOR (size-1 downto 0);
 					 clock : in  STD_LOGIC);
 		end component;
-		
+
 		signal clock: STD_LOGIC;
 begin
 	clock <= '1';
 	rc: register_cell port map(data_in, data_out, clock);
 end arch;
-

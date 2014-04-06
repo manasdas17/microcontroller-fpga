@@ -1,0 +1,22 @@
+NET "data_out(0)" LOC = "U16";
+NET "data_out(1)" LOC = "V16";
+NET "data_out(2)" LOC = "U15";
+NET "data_out(3)" LOC = "V15";
+
+NET "carry" LOC = "M11";
+
+NET "data_in(0)" LOC = "T10";
+NET "data_in(1)" LOC = "T9";
+NET "data_in(2)" LOC = "V9";
+NET "data_in(3)" LOC = "M8";
+
+NET "data_in_imm(0)" LOC = "N8";
+NET "data_in_imm(1)" LOC = "U8";
+NET "data_in_imm(2)" LOC = "V8";
+NET "data_in_imm(3)" LOC = "T5";
+
+NET "clock_1" LOC = "A8";
+NET "clock_2" LOC = "B8";
+NET "sel_ldi" LOC = "C4";
+NET "sel_imm" LOC = "D9";
+NET "acc_enable" LOC = "C9";
